@@ -25,7 +25,7 @@ namespace SudokuMaker.UserDataHandler
             // to make only one .sudo in the end
             using (FileStream fs = new FileStream($"{fileName.Replace(".sudo", "")}.sudo", FileMode.OpenOrCreate))
             {
-                bf.Serialize(fs, data);
+                bf.Serialize(fs, data); // 
             }
         }
 
