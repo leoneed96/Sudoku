@@ -1,0 +1,44 @@
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.exe.config
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.csprojResolveAssemblyReference.cache
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\MainWindow.g.cs
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\App.g.cs
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker_MarkupCompile.cache
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker_MarkupCompile.lref
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.exe
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.pdb
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\MainWindow.baml
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.g.resources
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.Properties.Resources.resources
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.csproj.GenerateResource.Cache
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.exe
+c:\users\admin\documents\visual studio 2013\Projects\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.pdb
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.exe.config
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.exe
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\SudokuMaker.pdb
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\MainWindow.g.cs
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\App.g.cs
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker_MarkupCompile.cache
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\MainWindow.baml
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.g.resources
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.Properties.Resources.resources
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.csproj.GenerateResource.Cache
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.exe
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.pdb
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\System.Windows.Interactivity.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\de\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\en\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\es\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\it\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker_MarkupCompile.lref
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\App.baml
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\Util\ResourceDictionary.baml
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\StatisticsWindow.g.cs
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\StatisticsWindow.baml
+E:\workspace\2018\SudokuMaker\SudokuMaker\obj\Debug\SudokuMaker.csprojResolveAssemblyReference.cache
