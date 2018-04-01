@@ -16,12 +16,30 @@ namespace SudokuMaker.Model
     [Serializable]
     public class Cell : INotifyPropertyChanged
     {
+        /// <summary>
+        /// зачем разграничение <see cref="number"/> и <see cref="strNumber"/> - не вспомню, но, наверное
+        /// , в этом была great thought
+        /// </summary>
         private int? number;
+        /// <summary>
+        /// <see cref="number"/>
+        /// </summary>
         private string strNumber;
+        /// <summary>
+        /// Является ли текущее значение ячейки корректным
+        /// </summary>
         private bool isCorrect;
+        /// <summary>
+        /// Позиция текущей ячейки
+        /// </summary>
         private Position position;
+        /// <summary>
+        /// Позиции ячеек (и по вертикали и по горизонтали), которые должны содержать толстые границы
+        /// (границы квадратов)
+        /// </summary>
         private List<int> thickPositions = new List<int> { 1, 4, 7 };
         [NonSerialized]
+
         private SolidColorBrush color;
         private Thickness borderThickness;
 

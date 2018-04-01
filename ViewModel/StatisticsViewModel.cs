@@ -15,11 +15,15 @@ namespace SudokuMaker.ViewModel
             Statistics = stat;
         }
         public List<UserStatistics> Statistics { get; set; }
+        /// <summary>
+        /// Текущий выбранный уровень сложности для просмотра статистики.
+        /// </summary>
         public UserStatistics SelectedDiff
         {
             get
             {
-                return selectedDiff ?? Statistics.Where(x => x.Difficulty == Model.Difficulty.VeryEasy).FirstOrDefault();
+                return selectedDiff ?? 
+                    Statistics.Where(x => x.Difficulty == Model.Difficulty.VeryEasy).FirstOrDefault();
             }
             set
             {

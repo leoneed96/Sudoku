@@ -17,14 +17,41 @@ namespace SudokuMaker.ViewModel
 {
     public class SudokuViewModel: INotifyPropertyChanged
     {
+        /// <summary>
+        /// Ячейки, заполняемые полностью и служащие опорой для формирования урезанного списка ячеек для
+        /// игрока. Так же, позже, возможно, для подсказки.
+        /// </summary> 
         public ObservableCollection<Cell> Cells { get; set; }
+        /// <summary>
+        /// Отображается игроку
+        /// </summary>
         public ObservableCollection<Cell> UserCells { get; set; }
+        /// <summary>
+        /// Текущий и по идее единственный экземпляр класса Game.
+        /// TODO: Может переделать в singleton?
+        /// </summary>
         public Game Game { get; set; }
+        /// <summary>
+        /// Текущий десериазированный/по-новой инициализированный класс, отвечающий за статистику игрока
+        /// </summary>
         public UserStatisticsData UserStatistics { get; set; }
+        /// <summary>
+        /// Таймер, служащий для обновления Game.SpendTime
+        /// TODO: переделать в Task?
+        /// </summary>
         private System.Timers.Timer timer;
+        /// <summary>
+        /// Экземпляр класса, отвещающего за управление данными статистики (сохраниние, загрузка, TODO: reset)
+        /// </summary>
         private UserDataWorker userData;
-
+        /// <summary>
+        /// Объкт для синхронизации доступа к мультипоточным ресурсам
+        /// </summary>
         private object m_lock;
+        /// <summary>
+        /// Конструктор. Полностью инициализирует закрытые <see cref="Cells"/> ячейки и выполняет
+        /// пре-инициализацю для <see cref="UserCells"/>
+        /// </summary>
         public SudokuViewModel()
         {
             m_lock = new object();
@@ -34,6 +61,10 @@ namespace SudokuMaker.ViewModel
             PreInitCells(UserCells);
             InitCellsCollections(Cells);
             FillCells();
+            /// <summary>
+            /// Необходимо для возможности доступа к являющимся предметом Binding <see cref="UserCells"/>
+            /// из другого потока (в данном случае для инициализации и нежелания блокировать UI)
+            /// </summary>
             BindingOperations.EnableCollectionSynchronization(UserCells, m_lock);
 
           
@@ -44,10 +75,17 @@ namespace SudokuMaker.ViewModel
             Game = new Game();
         }
 
+        /// <summary>
+        /// Обработчик события истекания времени для таймера.
+        /// TODO: переделать в Task?
+        /// </summary>
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Game.SpendTime = DateTime.Now - Game.StartTime;
         }
+        /// <summary>
+        /// Команды для связи View и ViewModel
+        /// </summary>
         #region Commands
         private RelayCommand newGameCommand;
         private RelayCommand loadGameCommand;
@@ -58,6 +96,9 @@ namespace SudokuMaker.ViewModel
         private RelayCommand exitCommand;
         private RelayCommand showStatsCommand;
 
+        /// <summary>
+        /// Команда, привязанная к нажатию button "New Game"
+        /// </summary>
         public RelayCommand NewGameCommand
         {
             get
@@ -65,11 +106,16 @@ namespace SudokuMaker.ViewModel
                 return newGameCommand ??
                     (newGameCommand = new RelayCommand(obj =>
                     {
+                        // Привязано в View, по умолчанию уровень сложности не выбран
                         if((int)Game.Difficulty == 0)
                         {
                             MessageBox.Show("Choose game difficulty first!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
+                        ///<summary>
+                        /// Task, который сгенерирует набор ячеек для пользователя или полностью обновит
+                        /// <see cref="Cells"/> в случае новой игры после первоначального запуска 
+                        ///</summary>
                         Task initCellsTask;
                         // первый запуск
                         if (UserCells.Count == 0)
@@ -80,7 +126,7 @@ namespace SudokuMaker.ViewModel
                                 AfterStartGame();
                             });
                         }
-                        // сгенерировать новый набор
+                        // повторный запуск
                         else
                         {
                             initCellsTask = new Task(() =>
@@ -98,6 +144,9 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда, привязанная к нажатию кнопки Stop
+        /// </summary>
         public RelayCommand StopGameCommand
         {
             get
@@ -118,6 +167,10 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда загрузки новой игры. Нуждается в доработке функционала заргрузки/сохраненения.
+        /// В данный момент работает/может работать некорректно.
+        /// </summary>
         public RelayCommand LoadGameCommand
         {
             get
@@ -148,6 +201,11 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда сохранения текущей игры
+        /// В данный момент выкинет exception, ругаясь на невозможность сериализовать структуру Thickness. 
+        /// Нуждается в доработке функционала заргрузки/сохраненения.
+        /// </summary>
         public RelayCommand SaveGameCommand
         {
             get
@@ -169,6 +227,10 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда проверки текущего состояния <see cref="UserCells"/>
+        /// В случае правильного заполнения поля следает необходимые действия, пусть и не так, как хотелось бы.
+        /// </summary>
         public RelayCommand CheckCellsCommand
         {
             get
@@ -192,6 +254,10 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда, привязанная к кнопке "Check". Отвечает за проверку соответствия 
+        /// значений, введенных пользователем по сравнению с <see cref="Cells"/>
+        /// </summary>
         public RelayCommand CheckCommand
         {
             get
@@ -217,6 +283,10 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда, привязанная к закрытию окна с игрой.
+        /// TODO: проверку на желание сохранить иргу, если она еще не сохранена.
+        /// </summary>
         public RelayCommand ExitCommand
         {
             get
@@ -231,6 +301,10 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда, привязанная к вызову пункта меню,отвечающего за открытие окна статистики
+        /// TODO: менее уродская реализация вызова Statistics?
+        /// </summary>
         public RelayCommand ShowStatsCommand
         {
             get
@@ -253,6 +327,10 @@ namespace SudokuMaker.ViewModel
         }
         #endregion
         #region Fillment methods
+        /// <summary>
+        /// Пре-инициализация переданных ячеек - заполнение позиций.
+        /// </summary>
+        /// <param name="cells"></param>
         private void PreInitCells(ObservableCollection<Cell> cells)
         {
             lock (m_lock)
@@ -266,6 +344,10 @@ namespace SudokuMaker.ViewModel
                 }
             }
         }
+        /// <summary>
+        /// Инициализация коллекций строки/столбца/квадрата для каждой ячейки из коллекции <paramref name="Cells"/>
+        /// </summary>
+        /// <param name="Cells"></param>
         private void InitCellsCollections(ObservableCollection<Cell> Cells)
         {
             lock (m_lock)
@@ -302,6 +384,10 @@ namespace SudokuMaker.ViewModel
                 }
             }
         }
+        /// <summary>
+        /// Полное заполнение полей Number для <see cref="Cells"/> в соответствии с правилами Sudoku.
+        /// TODO: нуждается в пересмотре и рефакторинге
+        /// </summary>
         private void FillCells()
         {
             lock (m_lock)
@@ -344,6 +430,9 @@ namespace SudokuMaker.ViewModel
             }
         }
 
+        /// <summary>
+        /// Инициализирует отображаемые пользователю <see cref="UserCells"/> в соответсвии с <see cref="Game.Difficulty"/>
+        /// </summary>
         private void InitUserCells()
         {
             lock (m_lock)
@@ -378,6 +467,9 @@ namespace SudokuMaker.ViewModel
         }
         #endregion
 
+        /// <summary>
+        /// Повторяющийся кусок для окончания Task-а инициализации ячеек для игрока.
+        /// </summary>
         private void AfterStartGame()
         {
             Game.StartTime = DateTime.Now;
