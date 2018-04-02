@@ -20,6 +20,8 @@ namespace SudokuMaker.Model
         private TimeSpan spendTime;
         private Difficulty difficulty;
         private bool isStarted;
+        private bool isFinished;
+
 
         public bool IsStarted
         {
@@ -31,6 +33,22 @@ namespace SudokuMaker.Model
             {
                 isStarted = value;
                 OnPropertyChanged("IsStarted");
+            }
+        }
+
+        /// <summary>
+        /// TODO: что-нибудь эдакое, что бы ловко убирало это обратно в false
+        /// </summary>
+        public bool IsFinished
+        {
+            get
+            {
+                return isFinished;
+            }
+            set
+            {
+                isFinished = value;
+                OnPropertyChanged("IsFinished");
             }
         }
 

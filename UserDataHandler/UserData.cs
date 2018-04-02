@@ -12,6 +12,7 @@ namespace SudokuMaker.UserDataHandler
     public class UserData
     {
         public ObservableCollection<Cell> Cells { get; set; }
+        public ObservableCollection<Cell> UserCells { get; set; }
         public Game Game { get; set; }
     }
 

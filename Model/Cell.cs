@@ -33,14 +33,9 @@ namespace SudokuMaker.Model
         /// Позиция текущей ячейки
         /// </summary>
         private Position position;
-        /// <summary>
-        /// Позиции ячеек (и по вертикали и по горизонтали), которые должны содержать толстые границы
-        /// (границы квадратов)
-        /// </summary>
-        private List<int> thickPositions = new List<int> { 1, 4, 7 };
         [NonSerialized]
-
         private SolidColorBrush color;
+        [NonSerialized]
         private Thickness borderThickness;
 
         public List<Cell> Squares { get; set; }
@@ -69,6 +64,8 @@ namespace SudokuMaker.Model
         {
             get
             {
+                if (this.borderThickness.Top == 0)
+                    InitThickness();
                 return borderThickness;
             }
             set
@@ -178,9 +175,9 @@ namespace SudokuMaker.Model
         {
             var thick = new Thickness(0.5);
 
-            if (thickPositions.Contains(this.Position.X))
+            if (AppLib.ThickPositions.Contains(this.Position.X))
                 thick.Left = 2;
-            if (thickPositions.Contains(this.Position.Y))
+            if (AppLib.ThickPositions.Contains(this.Position.Y))
                 thick.Top = 2;
             if (this.Position.X == 9)
                 thick.Right = 2;

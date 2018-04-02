@@ -11,6 +11,7 @@ namespace SudokuMaker.Util
     public static class AppLib
     {
         public static readonly int SudokuCellsCount = 81;
+        public static List<int> ThickPositions = new List<int> { 1, 4, 7 };
         private static SolidColorBrush correctColor = new SolidColorBrush(Colors.Black); 
         private static SolidColorBrush incorrectColor = new SolidColorBrush(Colors.Red);
 

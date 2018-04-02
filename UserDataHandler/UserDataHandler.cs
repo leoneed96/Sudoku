@@ -32,7 +32,7 @@ namespace SudokuMaker.UserDataHandler
         public UserData LoadGame(string fileName)
         {
             var bf = new BinaryFormatter();
-            using (FileStream fs = new FileStream($"{fileName}.sudo", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream($"{fileName}", FileMode.OpenOrCreate))
             {
                 UserData data = (UserData)bf.Deserialize(fs);
                 return data;

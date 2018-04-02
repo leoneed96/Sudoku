@@ -194,8 +194,19 @@ namespace SudokuMaker.ViewModel
                             if(dialog.ShowDialog() == true)
                             {
                                 if (dialog.FileName != null)
-                                    userData.LoadGame(dialog.FileName);
+                                {
+                                    if(Game.IsStarted)
+                                        UserStatistics.AddFinish(Game.Difficulty, Game.SpendTime);
+                                    userData.currentData = userData.LoadGame(dialog.FileName);
+                                }
                             }
+                            UserCells.Clear();
+                            Cells.Clear();
+                            InitLoadedGame(userData.currentData.Game);
+                            InitLoadedCells(userData.currentData.UserCells);
+                            Cells = userData.currentData.Cells;
+                            if (!timer.Enabled)
+                                timer.Start();
                         }
                     ));
             }
@@ -220,7 +231,12 @@ namespace SudokuMaker.ViewModel
                         if(dialog.ShowDialog() == true)
                         {
                             if(dialog.FileName != null)
-                                userData.SaveGame(new UserData { Cells = Cells, Game = Game }, dialog.FileName);
+                                userData.SaveGame(new UserData
+                                {
+                                    Cells = Cells,
+                                    Game = Game,
+                                    UserCells = UserCells
+                                }, dialog.FileName);
                         }
                     }
                     ));
@@ -247,7 +263,8 @@ namespace SudokuMaker.ViewModel
                             UserStatistics.AddFinish(Game.Difficulty, Game.SpendTime);
                             userData.SaveStatistic(UserStatistics);
                             timer.Stop();
-                            MessageBox.Show("You've finished the game!", "Congratulations!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Game.IsFinished = true;
+                            //MessageBox.Show("You've finished the game!", "Congratulations!", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     ));
@@ -437,7 +454,7 @@ namespace SudokuMaker.ViewModel
         {
             lock (m_lock)
             {
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(1000);
                 UserCells.Clear();
                 foreach (var cell in Cells)
                     UserCells.Add(new Cell(cell));
@@ -474,8 +491,27 @@ namespace SudokuMaker.ViewModel
         {
             Game.StartTime = DateTime.Now;
             Game.IsStarted = true;
+            Game.IsFinished = false;
             UserStatistics.AddStart(Game.Difficulty);
             timer.Start();
+        }
+
+        private void InitLoadedGame(Game game)
+        {
+            Game.Difficulty = game.Difficulty;
+            Game.IsStarted = true;
+            Game.StartTime = DateTime.Now - game.SpendTime;
+            Game.IsFinished = false;
+        }
+
+        public void InitLoadedCells(ObservableCollection<Cell> userCells)
+        {
+            if (UserCells.Count == 0)
+                PreInitCells(UserCells);
+            for (int i = 0; i < userCells.Count; i++)
+            {
+                UserCells[i] = userCells[i];
+            }
         }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="Model\Game.cs" />
     <Compile Include="UserDataHandler\UserData.cs" />
     <Compile Include="Util\AppLib.cs" />
+    <Compile Include="Util\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\NotBoolConverter.cs" />
     <Compile Include="UserDataHandler\UserDataHandler.cs" />
     <Compile Include="Util\RelayCommand.cs" />

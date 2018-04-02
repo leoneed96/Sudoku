@@ -13,6 +13,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <c:InverseBooleanConverter x:Key="NotBoolConverter"></c:InverseBooleanConverter>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
     </Window.Resources>
     <Border BorderBrush="{StaticResource BackgroundBrush}" BorderThickness="3" Background="{StaticResource MainBackgroundStyle}">
@@ -60,6 +61,29 @@
                     <Button x:Name="CheckButton" Style="{StaticResource ButtonGameOptionsStyle}" Command="{Binding CheckCommand }" 
                         IsEnabled="{Binding Path=Game.IsStarted}" Content="Check">
                     </Button>
+                    <TextBlock x:Name="Debug" FontFamily="Georgia" FontSize="18" TextAlignment="Center" Foreground="Green" Margin="0,20,0,0"
+                        Visibility="{Binding Path=Game.IsFinished, Converter= {StaticResource BooleanToVisibilityConverter}}">
+                        <Run Text="Congratulations!"/>
+                        <LineBreak/>
+                        <Run Text="You've finished"/>
+                        <LineBreak/>
+                        <Run Text=" this game!"/>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=CellsCollection, Path=Game.IsFinished, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Duration="0:0:3" From="0" To="1" Storyboard.TargetProperty="Opacity"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
             </GroupBox>
         
