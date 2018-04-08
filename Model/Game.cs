@@ -21,7 +21,20 @@ namespace SudokuMaker.Model
         private Difficulty difficulty;
         private bool isStarted;
         private bool isFinished;
+        private bool shouldPlayCorrectAnimation;
 
+        public bool ShouldPlayCorrectAnimation
+        {
+            get
+            {
+                return shouldPlayCorrectAnimation;
+            }
+            set
+            {
+                shouldPlayCorrectAnimation = value;
+                OnPropertyChanged("ShouldPlayCorrectAnimation");
+            }
+        }
 
         public bool IsStarted
         {

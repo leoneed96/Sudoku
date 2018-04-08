@@ -5,6 +5,7 @@
         xmlns:Game ="clr-namespace:SudokuMaker.Model"
         xmlns:c="clr-namespace:SudokuMaker.Util.Converters"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:SudokuMaker"
         Title="MainWindow" Height="600" Width="700" MinWidth="500" MinHeight="600">
     <Window.Resources>
         <ObjectDataProvider x:Key="DifficultyEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
@@ -40,7 +41,7 @@
                 </MenuItem>
                 <MenuItem Header="About">
                     <MenuItem Header="About Sudoku"/>
-                    <MenuItem Header="About author"/>
+                    <MenuItem Header="About Author"/>
                 </MenuItem>
             </Menu>
 
@@ -90,17 +91,42 @@
 
             <TextBlock TextAlignment="Center" FontSize="30" FontFamily="Comic Sans MS" 
                        Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#3b5998">Sudoku</TextBlock>
+            <local:OkControl Grid.Row="2" Opacity="0" Panel.ZIndex="3">
+                <local:OkControl.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Game.ShouldPlayCorrectAnimation, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="1" To="0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </local:OkControl.Style>
+            </local:OkControl>
             <ItemsControl x:Name="CellsCollection" ItemsSource="{Binding UserCells}" Margin="5,0,0,0" Grid.Row="2" MaxHeight="400" MaxWidth="400" MinHeight="400" MinWidth="400" HorizontalAlignment="Center">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid></UniformGrid>
+                        <UniformGrid>
+                        </UniformGrid>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border x:Name="CellBorder" BorderThickness="{Binding BorderThickness}" BorderBrush="Black">
-                            <TextBox 
+                            <TextBox
                                          x:Name="CellBox"
                                          TextAlignment="Center"
                                          VerticalAlignment="Stretch"

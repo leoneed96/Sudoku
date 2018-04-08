@@ -295,6 +295,17 @@ namespace SudokuMaker.ViewModel
                                     curr.IsCorrect = false;
                             }
                         }
+                        if (!UserCells.Where(x => x.Number != null && !x.IsCorrect).Any())
+                        {
+                            /// TODO: наверное, можно заставить анимацию сделать это менее ущербно
+                            Task hackAnimation = new Task(() => 
+                            {
+                                Game.ShouldPlayCorrectAnimation = true;
+                                System.Threading.Thread.Sleep(700);
+                                Game.ShouldPlayCorrectAnimation = false;
+                            });
+                            hackAnimation.Start();
+                        }
                     }
                     ));
             }
