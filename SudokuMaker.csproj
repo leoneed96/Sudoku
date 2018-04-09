@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InfoWiindow.xaml.cs">
+      <DependentUpon>InfoWiindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\InfoModel.cs" />
     <Compile Include="OkControl.xaml.cs">
       <DependentUpon>OkControl.xaml</DependentUpon>
     </Compile>
@@ -74,6 +78,10 @@
     <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\SudokuViewModel.cs" />
+    <Page Include="InfoWiindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OkControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

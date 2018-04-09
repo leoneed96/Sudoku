@@ -12,6 +12,7 @@ using System.Windows.Data;
 using Microsoft.Win32;
 using SudokuMaker.UserDataHandler;
 using System.Windows;
+using SudokuMaker.Properties;
 
 namespace SudokuMaker.ViewModel
 {
@@ -95,6 +96,7 @@ namespace SudokuMaker.ViewModel
         private RelayCommand checkCommand;
         private RelayCommand exitCommand;
         private RelayCommand showStatsCommand;
+        private RelayCommand rulesShowCommand;
 
         /// <summary>
         /// Команда, привязанная к нажатию button "New Game"
@@ -346,6 +348,20 @@ namespace SudokuMaker.ViewModel
                     ));
             }
         }
+
+        public RelayCommand RulesShowCommand
+        {
+            get
+            {
+                return rulesShowCommand ??
+                    (
+                    rulesShowCommand = new RelayCommand(obj =>
+                    {
+                        AppLib.ShowInfoWindow("Sudoku rules", "Rules", Resources.SudokuRulesString);
+                    }
+                    ));
+            }
+        }
         #endregion
         #region INotifyPropertyChanged members
         public event PropertyChangedEventHandler PropertyChanged;
@@ -465,7 +481,7 @@ namespace SudokuMaker.ViewModel
         {
             lock (m_lock)
             {
-                System.Threading.Thread.Sleep(1000);
+                //System.Threading.Thread.Sleep(1000);
                 UserCells.Clear();
                 foreach (var cell in Cells)
                     UserCells.Add(new Cell(cell));

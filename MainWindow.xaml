@@ -35,7 +35,7 @@
                 <MenuItem Header="Game">
                     <MenuItem Header="Load" Command="{Binding LoadGameCommand}"/>
                     <MenuItem Header="Save" IsEnabled="{Binding Game.IsStarted}" Command="{Binding SaveGameCommand}"/>
-                    <MenuItem Header="Rules"/>
+                    <MenuItem Header="Rules" Command="{Binding RulesShowCommand}"/>
                     <MenuItem Header="Statistics" Command="{Binding ShowStatsCommand}"/>
                     <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
                 </MenuItem>
@@ -91,14 +91,16 @@
 
             <TextBlock TextAlignment="Center" FontSize="30" FontFamily="Comic Sans MS" 
                        Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#3b5998">Sudoku</TextBlock>
-            <local:OkControl Grid.Row="2" Opacity="0" Panel.ZIndex="3">
+            <local:OkControl Grid.Row="2" Opacity="0" >
                 <local:OkControl.Style>
                     <Style>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Game.ShouldPlayCorrectAnimation, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <!--<Setter Property="Panel.ZIndex" Value="3"/>-->
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
+                                            <Int32Animation Storyboard.TargetProperty="(Panel.ZIndex)" Duration="0:0:0.01" From="-1" To="3"/>
                                             <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1"/>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -107,9 +109,13 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="1" To="0"/>
+                                            <Int32Animation Storyboard.TargetProperty="(Panel.ZIndex)" BeginTime="0:0:1" Duration="0:0:0.01" From="3" To="-1"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Game.ShouldPlayCorrectAnimation, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="-1"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
