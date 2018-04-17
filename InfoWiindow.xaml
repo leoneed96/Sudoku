@@ -5,35 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SudokuMaker"
         mc:Ignorable="d"
-        Title="{Binding WindowHeader}" Height="300" Width="600" MaxHeight="300" MaxWidth="600">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.65*"/>
-            <ColumnDefinition Width="0.35*"/>
-        </Grid.ColumnDefinitions>
+        Title="{Binding WindowHeader}" Height="300" Width="600" MinHeight="200" MinWidth="500">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="210"/>
+		</Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.87*"/>
-            <RowDefinition Height="0.13*"/>
-        </Grid.RowDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
 
-        <ScrollViewer Margin="10,10,5,5">
-        <StackPanel Grid.Column="0">
-                <TextBlock Text="{Binding TextHeader}" Style="{StaticResource TextBlockBaseStyle}" 
+		<ScrollViewer Margin="10,10,5,5">
+			<StackPanel Grid.Column="0">
+				<TextBlock Text="{Binding TextHeader}" Style="{StaticResource TextBlockBaseStyle}" 
                        HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap">
-                </TextBlock>
-            <TextBlock Style="{StaticResource TextBlockBaseStyle}" Text="{Binding MainText}" Margin="0,15,0,0" TextWrapping="Wrap"/>
-        </StackPanel>
-        </ScrollViewer>
+				</TextBlock>
+				<TextBlock Style="{StaticResource TextBlockBaseStyle}" FontSize="{Binding ElementName=FontsizeSlider, Path=Value}" Text="{Binding MainText}" Margin="0,15,0,0" TextWrapping="Wrap"/>
+			</StackPanel>
+		</ScrollViewer>
 
-        <TextBlock Grid.Column="1" Style="{StaticResource TextBlockBaseStyle}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="5,10,5,0">
+		<TextBlock Grid.Column="1" Style="{StaticResource TextBlockBaseStyle}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="5,10,5,0">
                 <Run>Here should probably appear some general text, so...</Run>
                 <LineBreak/>
                 <Run>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pulvinar lacus leo, id eleifend erat volutpat a. Phasellus lacinia, odio vitae varius congue, ante quam eleifend nisl, auctor consectetur libero mi eu nisl. Aenean facilisis est vitae quam finibus gravida. Quisque non auctor lorem.</Run>
-            </TextBlock>
-            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource TextBlockBaseStyle}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Bottom"
-                       Margin="0,0,0,5">
+		</TextBlock>
+		<TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource TextBlockBaseStyle}" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Bottom"
+                       Margin="10,0,0,5">
                     SudokuMaker © 2018
-            </TextBlock>
-    </Grid>
+		</TextBlock>
+		<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+			<TextBlock Style="{StaticResource TextBlockBaseStyle}">Font size:</TextBlock>
+			<Slider x:Name="FontsizeSlider" Minimum="1" Maximum="72" Value="14" TickFrequency="5" TickPlacement="BottomRight" Width="150"></Slider>
+		</StackPanel>
+	</Grid>
 </Window>
