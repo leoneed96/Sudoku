@@ -14,6 +14,7 @@ namespace SudokuMaker.Model
         public Game()
         {
             isStarted = false;
+			isHelpMode = false;
         }
 
         private DateTime startTime;
@@ -22,8 +23,35 @@ namespace SudokuMaker.Model
         private bool isStarted;
         private bool isFinished;
         private bool shouldPlayCorrectAnimation;
+		private bool isHelpMode;
+		private bool isHelpModeAviable;
 
-        public bool ShouldPlayCorrectAnimation
+		public bool IsHelpModeAviable
+		{
+			get
+			{
+				return !isHelpMode && isStarted;
+			}
+			set
+			{
+				isHelpModeAviable = value;
+				OnPropertyChanged("IsHelpModeAviable");
+			}
+		}
+		public bool IsHelpMode
+		{
+			get
+			{
+				return isHelpMode;
+			}
+			set
+			{
+				isHelpMode = value;
+				OnPropertyChanged("IsHelpMode");
+				OnPropertyChanged("IsHelpModeAviable");
+			}
+		}
+		public bool ShouldPlayCorrectAnimation
         {
             get
             {
@@ -46,7 +74,8 @@ namespace SudokuMaker.Model
             {
                 isStarted = value;
                 OnPropertyChanged("IsStarted");
-            }
+				OnPropertyChanged("IsHelpModeAviable");
+			}
         }
 
         /// <summary>

@@ -177,4 +177,8 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+
+	<Style x:Key="ButtonSimpleStyle" TargetType="Button">
+		
+	</Style>
 </ResourceDictionary>

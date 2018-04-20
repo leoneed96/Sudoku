@@ -14,7 +14,8 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <c:InverseBooleanConverter x:Key="NotBoolConverter"></c:InverseBooleanConverter>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		<c:BoolToCursorConverter x:Key="BoolToCursorConverter"></c:BoolToCursorConverter>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
     </Window.Resources>
     <Border BorderBrush="{StaticResource BackgroundBrush}" BorderThickness="3" Background="{StaticResource MainBackgroundStyle}">
@@ -62,7 +63,10 @@
                     <Button x:Name="CheckButton" Style="{StaticResource ButtonGameOptionsStyle}" Command="{Binding CheckCommand }" 
                         IsEnabled="{Binding Path=Game.IsStarted}" Content="Check">
                     </Button>
-                    <TextBlock x:Name="Debug" FontFamily="Georgia" FontSize="18" TextAlignment="Center" Foreground="Green" Margin="0,20,0,0"
+					<Button x:Name="HelpModeButton" Style="{StaticResource ButtonGameOptionsStyle}" Command="{Binding TriggerHelpModeCommand}"
+                        IsEnabled="{Binding Path=Game.IsHelpModeAviable}" Content="Help">
+					</Button>
+					<TextBlock x:Name="Debug" FontFamily="Georgia" FontSize="18" TextAlignment="Center" Foreground="Green" Margin="0,20,0,0"
                         Visibility="{Binding Path=Game.IsFinished, Converter= {StaticResource BooleanToVisibilityConverter}}">
                         <Run Text="Congratulations!"/>
                         <LineBreak/>
@@ -144,27 +148,33 @@
                                          MaxLength="1"
                                          Margin="0.5"
                                          Opacity="0"
-                                         BorderThickness="0">
+                                         BorderThickness="0"
+										 Cursor="{Binding ElementName=CellsCollection, 
+                                                Path=DataContext.Game.IsHelpMode, Converter={StaticResource BoolToCursorConverter}, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewKeyUp">
                                         <i:InvokeCommandAction Command="{Binding ElementName=CellsCollection, 
                                                 Path=DataContext.CheckCellsCommand}" CommandParameter="{Binding Position}"/>
                                     </i:EventTrigger>
+									<i:EventTrigger EventName="PreviewMouseUp">
+										<i:InvokeCommandAction Command="{Binding ElementName=CellsCollection, 
+                                                Path=DataContext.HelpCommand}" CommandParameter="{Binding Position}"/>
+									</i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
                         </Border>
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=CellsCollection, Path=DataContext.Game.IsStarted, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                <Setter Property="Text" TargetName="CellBox" Value="{Binding StrNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:3" From="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CellBox" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                            </DataTrigger>
-                            <Trigger Property="IsFocused" SourceName="CellBox" Value="True">
+							<DataTrigger Binding="{Binding ElementName=CellsCollection, Path=DataContext.Game.IsStarted, UpdateSourceTrigger=PropertyChanged}" Value="True">
+								<Setter Property="Text" TargetName="CellBox" Value="{Binding StrNumber, UpdateSourceTrigger=PropertyChanged}"/>
+								<DataTrigger.EnterActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation Duration="0:0:3" From="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CellBox" />
+										</Storyboard>
+									</BeginStoryboard>
+								</DataTrigger.EnterActions>
+							</DataTrigger>
+							<Trigger Property="IsFocused" SourceName="CellBox" Value="True">
                                 <Setter Property="Background" TargetName="CellBox" Value="AliceBlue"/>
                                 <Setter Property="BorderThickness" TargetName="CellBorder" Value="{Binding BorderThickness}"/>
                             </Trigger>

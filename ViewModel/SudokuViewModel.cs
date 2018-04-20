@@ -13,6 +13,7 @@ using Microsoft.Win32;
 using SudokuMaker.UserDataHandler;
 using System.Windows;
 using SudokuMaker.Properties;
+using System.Windows.Controls;
 
 namespace SudokuMaker.ViewModel
 {
@@ -97,11 +98,13 @@ namespace SudokuMaker.ViewModel
         private RelayCommand exitCommand;
         private RelayCommand showStatsCommand;
         private RelayCommand rulesShowCommand;
+		private RelayCommand helpCommand;
+		private RelayCommand triggerHelpModeCommand;
 
-        /// <summary>
-        /// Команда, привязанная к нажатию button "New Game"
-        /// </summary>
-        public RelayCommand NewGameCommand
+		/// <summary>
+		/// Команда, привязанная к нажатию button "New Game"
+		/// </summary>
+		public RelayCommand NewGameCommand
         {
             get
             {
@@ -362,9 +365,38 @@ namespace SudokuMaker.ViewModel
                     ));
             }
         }
-        #endregion
-        #region INotifyPropertyChanged members
-        public event PropertyChangedEventHandler PropertyChanged;
+		public RelayCommand HelpCommand
+		{
+			get
+			{
+				return helpCommand ??
+					(
+					helpCommand = new RelayCommand(obj =>
+					{
+						if (!Game.IsHelpMode)
+							return;
+						
+						//AppLib.ShowInfoWindow("Sudoku rules", "Rules", Resources.SudokuRulesString);
+					}
+					));
+			}
+		}
+		public RelayCommand TriggerHelpModeCommand
+		{
+			get
+			{
+				return triggerHelpModeCommand ??
+					(
+					triggerHelpModeCommand = new RelayCommand(obj =>
+					{
+						Game.IsHelpMode = !Game.IsHelpMode;
+					}
+					));
+			}
+		}
+		#endregion
+		#region INotifyPropertyChanged members
+		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
